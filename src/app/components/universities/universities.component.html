@@ -1,0 +1,22 @@
+<form [formGroup]="countryForm" (ngSubmit)="onCountryFormSubmitted(countryForm)">
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Country</mat-label>
+      <input matInput type="text" placeholder="Country" formControlName="country" required>
+      <mat-error *ngIf="countryForm.get('country')!.invalid">country is invalid</mat-error>
+    </mat-form-field>
+  </div>
+</form>
+<ng-container *ngIf="listOfUniversities$|async as universities else waitUser">
+  <ng-container *ngIf="universities.length>0 else emptyState">
+    <mat-list role=" list">
+      <mat-list-item role="listitem" *ngFor="let university of universities">{{university.name}}</mat-list-item>
+    </mat-list>
+  </ng-container>
+  <ng-template #emptyState>
+    No records
+  </ng-template>
+</ng-container>
+<ng-template #waitUser>
+  Enter Country
+</ng-template>
